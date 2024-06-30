@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class AnimatedSVGDemo extends StatefulWidget {
+  const AnimatedSVGDemo({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _AnimatedSVGDemoState createState() => _AnimatedSVGDemoState();
 }
 
@@ -71,7 +74,9 @@ class _AnimatedSVGDemoState extends State<AnimatedSVGDemo>
             'assets/images/logo.svg',
             width: 28, // Adjust to your SVG's dimensions
             height: 28,
+            // ignore: deprecated_member_use
             color: const Color.fromARGB(255, 0, 0, 0),
+            // ignore: deprecated_member_use
             colorBlendMode: BlendMode.srcIn, // Apply the color to the SVG
           ), // Use srcATop to blend the shader and the image properly
         ),

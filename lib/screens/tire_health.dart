@@ -1,9 +1,8 @@
+import 'package:bike_project/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class TireHealthModel {
-  void dispose() {
-    // Implement dispose logic here if needed
-  }
+  void dispose() {}
 }
 
 class TireHealthPage extends StatefulWidget {
@@ -14,113 +13,117 @@ class TireHealthPage extends StatefulWidget {
 }
 
 class _TireHealthPageState extends State<TireHealthPage> {
-  late TireHealthModel _model;
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = TireHealthModel();
   }
 
   @override
   void dispose() {
-    _model.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 70,
-              left: 0,
-              child: ClipPath(
-                clipper: CustomClipPath(),
-                child: Container(
-                  width: 301,
-                  height: 114.43,
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      stops: [0.1376, 0.5174, 0.8403, 1.1206],
-                      colors: [
-                        Color(0xFF09545E),
-                        Color(0xFF0C7785),
-                        Color(0x8309545E),
-                        Color(0x00054C66),
-                      ],
-                      transform: GradientRotation(90.3 * (3.1415927 / 90)),
+      key: scaffoldKey,
+      body: Stack(
+        children: [
+          Align(
+            alignment: AlignmentDirectional(-2, -0.9),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/headline.png',
+                width: screenWidth * 0.9, // 90% of screen width
+                height: screenHeight * 0.3, // 30% of screen height
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * 0.155, // 15% of screen height
+              bottom: screenHeight * 0.025, // 2.5% of screen height
+              right: screenWidth * 0.25, // 35% of screen width
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(
+                    right: screenWidth * 0.08, // 8% of screen width
+                  ), // Adjust the padding as needed
+                  child: IconButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Color.fromARGB(255, 255, 255, 255),
+                      size: 24,
                     ),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.elliptical(0, 100),
-                    ),
+                    onPressed: () => Navigator.of(context).pop(),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        onPressed: () => Navigator.of(context).pop(),
+                ),
+                const Text(
+                  'Tyre Health',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontFamily: 'Goldman',
+                    color: Color.fromARGB(255, 255, 255, 255),
+                    fontWeight: FontWeight.bold,
+                    shadows: [
+          Shadow(
+            offset: Offset(3.0, 4.0),
+            blurRadius: 3.0,
+            color: Color.fromARGB(119, 0, 0, 0),
+          ),
+        ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+            
+              Align(
+                alignment: AlignmentDirectional(0, 0.95),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHome()),
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: Image.asset(
+                        'assets/images/home.png',
+                        fit: BoxFit.cover,
+                        
                       ),
-                      const Text(
-                        'Tire Health',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'Goldman',
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            // Add your tire health content widgets here
-          ],
-        ),
-      ),
-      floatingActionButton: Align(
-        alignment: AlignmentDirectional(0.04, -0.2),
-        child: GestureDetector(
-          onTap: () {
-            // Add your onTap functionality here
-          },
-          child: Image.asset(
-            'assets/images/servicesbike.png',
-            width: 233.0,
-            height: 191.12,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
+            Align(
+  alignment: AlignmentDirectional(0.04, -0.2),
+  child: GestureDetector(
+    child: Image.asset(
+      'assets/images/servicesbike.png',
+      width: MediaQuery.of(context).size.width * 0.7, // 60% of screen width
+      height: MediaQuery.of(context).size.height * 0.25, // 25% of screen height
+      fit: BoxFit.cover,
+    ),
+  ),
+),
+
+            
+      ]),
     );
   }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, 0); // Top left
-    path.lineTo(size.width, 0); // Top right
-    path.lineTo(size.width, size.height - 40); // Bottom right cut
-    path.lineTo(size.width - 85, size.height); // Bottom right corner
-    path.lineTo(0, size.height); // Bottom left
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

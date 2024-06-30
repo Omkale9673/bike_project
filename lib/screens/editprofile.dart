@@ -28,9 +28,10 @@ class FFUploadedFile {
 }
 
 class EditProfilePage extends StatefulWidget {
-  const EditProfilePage({Key? key}) : super(key: key);
+  const EditProfilePage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditProfilePageState createState() => _EditProfilePageState();
 }
 
@@ -146,24 +147,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
               [
                 Padding(
                   padding: EdgeInsets.fromLTRB(
-                    sidePadding,
-                    0,
-                    sidePadding,
-                    10,
-                  ),
-                  child: const Align(
-                    alignment: AlignmentDirectional(0, 0.49),
-                    child: Divider(
-                      height: 0,
-                      thickness: 2,
-                      indent: 50,
-                      color: Colors.black,
-                      endIndent: 50,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(
                     sidePadding - 15,
                     topPadding - 60,
                     sidePadding,
@@ -219,16 +202,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ],
                   ),
                 ),
-                const Align(
-                  alignment: AlignmentDirectional(0, 0.49),
-                  child: Divider(
-                    height: 0,
-                    thickness: 2,
-                    indent: 0,
-                    color: Colors.black,
-                    endIndent: 0,
-                  ),
-                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                     sidePadding,
@@ -268,16 +241,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ],
                   ),
                 ),
-                const Align(
-                  alignment: AlignmentDirectional(0, 0.49),
-                  child: Divider(
-                    height: 0,
-                    thickness: 2,
-                    indent: 0,
-                    color: Colors.black,
-                    endIndent: 0,
-                  ),
-                ),
+              
                 Padding(
                   padding: EdgeInsets.fromLTRB(
                     sidePadding,
@@ -316,16 +280,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               ),
                       ),
                     ],
-                  ),
-                ),
-                const Align(
-                  alignment: AlignmentDirectional(0, 0.49),
-                  child: Divider(
-                    height: 0,
-                    thickness: 2,
-                    indent: 50,
-                    color: Colors.black,
-                    endIndent: 50,
                   ),
                 ),
                 Padding(
@@ -387,24 +341,27 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     10,
                   ),
                   child: Align(
-                    alignment: const AlignmentDirectional(0.04, 0.94),
-                    child: GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const MyHome(),
-                          ),
-                        );
-                      },
+                alignment: const AlignmentDirectional(0, 0.9),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHome()),
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
                       child: Image.asset(
                         'assets/images/home.png',
-                        width: 32.0,
-                        height: 32.0,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
+                ),
+              ),
                 ),
               ],
             ),
@@ -413,20 +370,4 @@ class _EditProfilePageState extends State<EditProfilePage> {
       ),
     );
   }
-}
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, 0); // Top left
-    path.lineTo(size.width, 0); // Top right
-    path.lineTo(size.width, size.height - 40); // Bottom right cut
-    path.lineTo(size.width - 85, size.height); // Bottom right corner
-    path.lineTo(0, size.height); // Bottom left
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

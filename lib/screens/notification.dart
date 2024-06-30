@@ -1,3 +1,4 @@
+import 'package:bike_project/screens/home.dart';
 import 'package:flutter/material.dart';
 
 class BikeDetailsModel {
@@ -5,10 +6,11 @@ class BikeDetailsModel {
 }
 
 class NotificationPage extends StatefulWidget {
-  const NotificationPage({Key? key}) : super(key: key);
+  const NotificationPage({super.key});
 
   @override
-_NotificationPageState createState() => _NotificationPageState();
+  // ignore: library_private_types_in_public_api
+  _NotificationPageState createState() => _NotificationPageState();
 }
 
 class _NotificationPageState extends State<NotificationPage> {
@@ -26,82 +28,91 @@ class _NotificationPageState extends State<NotificationPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Center(
-        child: Stack(
-          children: [
-            Positioned(
-              top: 70,
-              left: 0,
-              child: ClipPath(
-                clipper: CustomClipPath(),
-                child: Container(
-                  width: 301,
-                  height: 114.43,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.centerLeft,
-                      end: Alignment.centerRight,
-                      stops: [0.1376, 0.5174, 0.8403, 1.1206],
-                      colors: [
-                        Color(0xFF09545E),
-                        Color(0xFF0C7785),
-                        Color(0x8309545E),
-                        Color(0x00054C66),
-                      ],
-                      transform: GradientRotation(90.3 * (3.1415927 / 90)),
-                    ),
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20),
-                      bottomRight: Radius.elliptical(0, 100),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios,
-                          color: Colors.white,
-                          size: 24,
-                        ),
-                        onPressed: () => Navigator.of(context).pop(),
+      key: scaffoldKey,
+      body: Stack(
+        children: [
+          Align(
+            alignment: const AlignmentDirectional(-2, -0.9),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/headline.png',
+                width: screenWidth * 0.9, // 90% of screen width
+                height: screenHeight * 0.3, // 30% of screen height
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * 0.155, // 15% of screen height
+              bottom: screenHeight * 0.025, // 2.5% of screen height
+              right: screenWidth * 0.18, // 35% of screen width
+            ),
+            child: Row(
+  mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Padding(
+      padding: EdgeInsets.only(
+        right: screenWidth * 0.0, // 0% of screen width
+      ), // Adjust the padding as needed
+      child: IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: Color.fromARGB(255, 255, 255, 255),
+          size: 24,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+    ),
+    const Text(
+      'Notification',
+      style: TextStyle(
+        fontSize: 28,
+        fontFamily: 'Goldman',
+        color: Color.fromARGB(255, 255, 255, 255),
+        fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(
+            offset: Offset(3.0, 4.0),
+            blurRadius: 3.0,
+            color: Color.fromARGB(119, 0, 0, 0),
+          ),
+        ],
+      ),
+    ),
+  ],
+),
+
+          ),
+            
+              Align(
+                alignment: const AlignmentDirectional(0, 0.9),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHome()),
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: Image.asset(
+                        'assets/images/home.png',
+                        fit: BoxFit.cover,
                       ),
-                      const Text(
-                        'Notification',
-                        style: TextStyle(
-                          fontSize: 28,
-                          fontFamily: 'Goldman',
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            // Add your bike details content widgets here
-          ],
-        ),
-      ),
+            
+      ]),
     );
   }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, 0); // Top left
-    path.lineTo(size.width, 0); // Top right
-    path.lineTo(size.width, size.height - 40); // Bottom right cut
-    path.lineTo(size.width - 85, size.height); // Bottom right corner
-    path.lineTo(0, size.height); // Bottom left
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

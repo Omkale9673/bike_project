@@ -50,7 +50,7 @@ class _MyotpState extends State<Myotp> with CodeAutoFill {
           onPressed: () {
             Navigator.pop(context);
           },
-          icon: Icon(
+          icon: const Icon(
             Icons.arrow_back_ios_new_rounded,
             color: Colors.black,
           ),
@@ -89,22 +89,22 @@ class _MyotpState extends State<Myotp> with CodeAutoFill {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 25, right: 25),
+            margin: const EdgeInsets.only(left: 25, right: 25),
             alignment: Alignment.center,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Phone Verification',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 12), // Adding SizedBox for spacing
-                Text(
+                const SizedBox(height: 12), // Adding SizedBox for spacing
+                const Text(
                   'We have sent One Time Password (OTP) to your mobile number.',
                   style: TextStyle(fontSize: 16),
                   textAlign: TextAlign.center, // Aligning text to center
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Pinput(
                   length: 6,
                   showCursor: true,
@@ -113,7 +113,7 @@ class _MyotpState extends State<Myotp> with CodeAutoFill {
                     _code = value;
                   },
                 ),
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 SizedBox(
                   height: 45,
                   width: double.infinity,
@@ -129,15 +129,15 @@ class _MyotpState extends State<Myotp> with CodeAutoFill {
                         print('Wrong OTP');
                       }
                     },
-                    child: Text(
-                      'Verify Phone Number',
-                      style: TextStyle(color: Colors.white), // Set text color to white
-                    ),
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.blueAccent.shade700,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10),
                       ),
+                    ),
+                    child: const Text(
+                      'Verify Phone Number',
+                      style: TextStyle(color: Colors.white), // Set text color to white
                     ),
                   ),
                 ),
@@ -147,7 +147,7 @@ class _MyotpState extends State<Myotp> with CodeAutoFill {
           Positioned(
             top: screenSize.height * 0.09,
             left: screenSize.width * 0.345,
-            child: Text(
+            child: const Text(
               'Verify',
               style: TextStyle(
                 fontSize: 40,

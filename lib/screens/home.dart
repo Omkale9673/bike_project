@@ -12,6 +12,8 @@ class MyHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       drawer: Drawer(
         child: ListView(
@@ -19,66 +21,59 @@ class MyHome extends StatelessWidget {
           children: <Widget>[
             Stack(
               children: [
-                Positioned(
-                  top: 70,
-                  left: 0,
-                  child: ClipPath(
-                    clipper: CustomClipPath(),
-                    child: Container(
-                      width: 301,
-                      height: 114.43,
-                      decoration: const BoxDecoration(
-                        gradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          stops: [0.1376, 0.5174, 0.8403, 1.1206],
-                          colors: [
-                            Color(0xFF09545E),
-                            Color(0xFF0C7785),
-                            Color(0x8309545E),
-                            Color(0x00054C66),
-                          ],
-                          transform: GradientRotation(90.3 * (3.1415927 / 90)),
-                        ),
-                        borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(20),
-                          bottomRight: Radius.elliptical(0, 100),
-                        ),
+                Align(
+            alignment: const AlignmentDirectional(-2, -0.9),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/headline.png',
+                width: screenWidth * 0.82, // 90% of screen width
+                height: screenHeight * 0.3, // 30% of screen height
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * 0.12, // 15% of screen height
+              bottom: screenHeight * 0.025, // 2.5% of screen height
+              right: screenWidth * 0.25, // 35% of screen width
+            ),
+            child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+  children: [
+    Padding(
+      padding: EdgeInsets.only(
+        right: screenWidth * 0.0, // 0% of screen width
+      ), // Adjust the padding as needed
+      child: IconButton(
+        icon: const Icon(
+          Icons.arrow_back_ios,
+          color: Color.fromARGB(255, 255, 255, 255),
+          size: 24,
+        ),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+    ),
+    const Text(
+      'Menu',
+      style: TextStyle(
+        fontSize: 28,
+        fontFamily: 'Goldman',
+        color: Color.fromARGB(255, 255, 255, 255),
+        fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(
+            offset: Offset(3.0, 4.0),
+            blurRadius: 3.0,
+            color: Color.fromARGB(119, 0, 0, 0),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                            top: 20.0, bottom: 20.0, right: 80.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                  right: 30.0), // Adjust the padding as needed
-                              child: IconButton(
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  color: Colors.white,
-                                  size: 24,
-                                ),
-                                onPressed: () => Navigator.of(context).pop(),
-                              ),
-                            ),
-                            const Text(
-                              'Menu',
-                              style: TextStyle(
-                                fontSize: 28,
-                                fontFamily: 'Goldman',
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                    ],
                   ),
                 ),
-                const Align(
+              ],
+            ),
+          ), 
+          const Align(
                   alignment: Alignment.bottomLeft,
                   child: Padding(
                     padding:
@@ -88,32 +83,6 @@ class MyHome extends StatelessWidget {
               ],
             ),
             ..._buildListTiles(context),
-            Padding(
-              padding: EdgeInsets.only(
-                  top: MediaQuery.of(context).size.height * 0.12),
-              child: Align(
-                alignment: AlignmentDirectional.bottomCenter,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const MyHome()),
-                    );
-                  },
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.14,
-                    height: MediaQuery.of(context).size.width * 0.14,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(18),
-                      child: Image.asset(
-                        'assets/images/home.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            )
           ],
         ),
       ),
@@ -182,7 +151,7 @@ class MyHome extends StatelessWidget {
                 children: [
                   _buildDialogOption(
                     'assets/images/horn.png',
-                    'Hork',
+                    'Horn',
                     () {
                     },
                     MediaQuery.of(context).size.width,
@@ -297,11 +266,11 @@ class MyHome extends StatelessWidget {
       {
         'image': 'assets/images/service.png',
         'title': 'Services',
-        'page': const ServicePage()
+        'page': const servicesPage()
       },
       {
         'image': 'assets/images/tirehealth.png',
-        'title': 'Tire Health',
+        'title': 'Tyre Health',
         'page': const TireHealthPage()
       },
       {
@@ -407,7 +376,7 @@ class MyHome extends StatelessWidget {
 }
 
 class HomePageContent extends StatelessWidget {
-  const HomePageContent({Key? key}) : super(key: key);
+  const HomePageContent({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -438,18 +407,24 @@ class HomePageContent extends StatelessWidget {
               )
         ),
         Positioned.fill(
-          child: Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(185, 0, 0, 0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                'assets/images/image_bike.png',
-                width: 420,
-                height: MediaQuery.of(context).size.height,
-              ),
-            ),
-          ),
-        ),
+  child: Padding(
+    padding: EdgeInsetsDirectional.fromSTEB(
+      MediaQuery.of(context).size.width > 600 ? 185 : 185, // Adjusted horizontal padding for larger screens
+      0,
+      0,
+      0,
+    ),
+    child: ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.asset(
+        'assets/images/image_bike.png',
+        width: 420,
+        height: MediaQuery.of(context).size.height,
+      ),
+    ),
+  ),
+),
+
         Positioned(
           top: 30,
           left: 40,
@@ -473,7 +448,7 @@ class HomePageContent extends StatelessWidget {
 }
 
 class GradientBox extends StatelessWidget {
-  const GradientBox({Key? key}) : super(key: key);
+  const GradientBox({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -501,7 +476,7 @@ class GradientBox extends StatelessWidget {
 }
 
 class TripleLayerSquare extends StatelessWidget {
-  const TripleLayerSquare({Key? key}) : super(key: key);
+  const TripleLayerSquare({super.key});
 
   @override
   Widget build(BuildContext context) {

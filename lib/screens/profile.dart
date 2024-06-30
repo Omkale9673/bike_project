@@ -34,70 +34,66 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    
     return MaterialApp(
       home: Scaffold(
         body: Center(
           child: Stack(
             children: [
-              Positioned(
-                top: 70,
-                left: 0,
-                child: ClipPath(
-                  clipper: CustomClipPath(),
-                  child: Container(
-                    width: 301,
-                    height: 114.43,
-                    decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        stops: [0.1376, 0.5174, 0.8403, 1.1206],
-                        colors: [
-                          Color(0xFF09545E),
-                          Color(0xFF0C7785),
-                          Color(0x8309545E),
-                          Color(0x00054C66),
-                        ],
-                        transform: GradientRotation(90.3 * (3.1415927 / 90)),
-                      ),
-                      borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(20),
-                        bottomRight: Radius.elliptical(0, 100),
-                      ),
-                    ),
-                    child: Row(
-  mainAxisAlignment: MainAxisAlignment.start,
+                Align(
+            alignment: const AlignmentDirectional(-2, -0.9),
+            child: ClipRRect(
+              child: Image.asset(
+                'assets/images/headline.png',
+                width: screenWidth * 0.9, // 90% of screen width
+                height: screenHeight * 0.3, // 30% of screen height
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: screenHeight * 0.155, // 15% of screen height
+              bottom: screenHeight * 0.025, // 2.5% of screen height
+              right: screenWidth * 0.35, // 35% of screen width
+            ),
+            child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
   children: [
-    // Padding for IconButton
     Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(30, 0, 0, 0), // Adjust the padding as needed
+      padding: EdgeInsets.only(
+        right: screenWidth * 0.0, // 0% of screen width
+      ), // Adjust the padding as needed
       child: IconButton(
         icon: const Icon(
           Icons.arrow_back_ios,
-          color: Colors.white,
+          color: Color.fromARGB(255, 255, 255, 255),
           size: 24,
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),
     ),
-    const Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(15, 0, 0, 0), // Adjust the padding as needed
-      child: Text(
-        'Profile',
-        style: TextStyle(
-          fontSize: 28,
-          fontFamily: 'Goldman',
-          color: Colors.white,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    ),
-  ],
-)
-
+    const Text(
+      'Profile',
+      style: TextStyle(
+        fontSize: 28,
+        fontFamily: 'Goldman',
+        color: Color.fromARGB(255, 255, 255, 255),
+        fontWeight: FontWeight.bold,
+        shadows: [
+          Shadow(
+            offset: Offset(3.0, 4.0),
+            blurRadius: 3.0,
+            color: Color.fromARGB(119, 0, 0, 0),
+                      ),
+                    ],
                   ),
                 ),
-              ),
+              ],
+            ),
+          ),
                 Positioned(
                 top: MediaQuery.of(context).size.height * 0.55,
                 left: MediaQuery.of(context).size.width * 0.1,
@@ -118,7 +114,7 @@ class _ProfilePageState extends State<ProfilePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Mange Document',
+                          'Manage Document',
                           style: TextStyle(
                             fontFamily: 'Raleway',
                             fontSize: 20,
@@ -252,18 +248,25 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
-              Align(
-                alignment: const AlignmentDirectional(0.04, 0.94),
+                Align(
+                alignment: const AlignmentDirectional(0, 0.9),
                 child: GestureDetector(
-                  onTap: () {Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyHome()),
-                  );},
-                  child: Image.asset(
-                    'assets/images/home.png',
-                    width: 45.0,
-                    height: 45.0,
-                    fit: BoxFit.cover,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const MyHome()),
+                    );
+                  },
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.14,
+                    height: MediaQuery.of(context).size.width * 0.14,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(18),
+                      child: Image.asset(
+                        'assets/images/home.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                 ),
               ),
@@ -273,21 +276,4 @@ class _ProfilePageState extends State<ProfilePage> {
       ),
     );
   }
-}
-
-class CustomClipPath extends CustomClipper<Path> {
-  @override
-  Path getClip(Size size) {
-    final path = Path();
-    path.lineTo(0, 0); // Top left
-    path.lineTo(size.width, 0); // Top right
-    path.lineTo(size.width, size.height - 40); // Bottom right cut
-    path.lineTo(size.width - 85, size.height); // Bottom right corner
-    path.lineTo(0, size.height); // Bottom left
-    path.close();
-    return path;
-  }
-
-  @override
-  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }

@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class MyPhone extends StatefulWidget {
-  const MyPhone({Key? key}) : super(key: key);
+  const MyPhone({super.key});
 
   static String verify = "";
 
@@ -59,21 +59,21 @@ class _MyPhoneState extends State<MyPhone> {
           ),
           Positioned.fill(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 25),
+              padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  const Text(
                     'Phone Verification',
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 12), // Adding SizedBox for spacing
-                  Text(
+                  const SizedBox(height: 12), // Adding SizedBox for spacing
+                  const Text(
                     'Login through your registered phone number and start your deliveries.',
                     style: TextStyle(fontSize: 16),
                     textAlign: TextAlign.center, // Aligning text to center
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Column(
                     children: [
                       Row(
@@ -82,18 +82,18 @@ class _MyPhoneState extends State<MyPhone> {
                             width: 70,
                             child: TextField(
                               controller: countryCodeController,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(), // Add border
                                 labelText: 'Country Code',
                               ),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          const SizedBox(width: 10),
                           Expanded(
                             child: TextField(
                               controller: phoneNumberController,
                               keyboardType: TextInputType.phone,
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                 border: OutlineInputBorder(),
                                 labelText: 'Phone Number', // Add border
                               ),
@@ -101,7 +101,7 @@ class _MyPhoneState extends State<MyPhone> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 10), // Add SizedBox for spacing
+                      const SizedBox(height: 10), // Add SizedBox for spacing
                     ],
                   ),
                   SizedBox(
@@ -121,15 +121,15 @@ class _MyPhoneState extends State<MyPhone> {
                         );
                         // Navigator.pushNamed(context, "otp");
                       },
-                      child: Text(
-                        'Send the Code',
-                        style: TextStyle(color: Colors.white), // Set text color to white
-                      ),
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.blueAccent.shade700,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
+                      ),
+                      child: const Text(
+                        'Send the Code',
+                        style: TextStyle(color: Colors.white), // Set text color to white
                       ),
                     ),
                   ),
@@ -140,7 +140,7 @@ class _MyPhoneState extends State<MyPhone> {
           Positioned(
             top: screenSize.height * 0.09,
             left: screenSize.width * 0.345,
-            child: Text(
+            child: const Text(
               'Login',
               style: TextStyle(
                 fontSize: 40,
